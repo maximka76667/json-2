@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Prueba JSON</title>
+  <meta charset="UTF-8" />
+</head>
+
+<body>
+  <div id="salida" style="text-align:center"></div>
+
+  <script>
+    var xmlhttp = new XMLHttpRequest();
+    var url = "http://localhost/json/ej02/solucion.json"; // Origen de los datos JSON
+
+    xmlhttp.onreadystatechange = function () { // Se reciben los datos
+      if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+        var datos = JSON.parse(xmlhttp.responseText);
+        procesaDatos(datos);
+      }
+    };
+    xmlhttp.open("GET", url, true); // Indicamos tipo de petición, origen de los datos y modo asíncrono
+    xmlhttp.send(); // Enviamos la petición, abrimos el fichero.
+
+    function procesaDatos(datos) { // Aquí es donde se debe personalizar el texto
+      const { peliculas } = datos;
+      const { titulo, puntuacion, director } = peliculas[0];
+
+      document.getElementById("salida").innerHTML = `La pelicula <strong> ${titulo} </strong> con una puntuación <strong> ${puntuacion} </strong> y director: ${director}`;
+    }
+  </script>
+</body>
+
+</html>
